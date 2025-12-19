@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  background: #ccc;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.aq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #3f5032;
+  padding: 10px 50px;
+  height: 80px;
+}
+.aq-title {
+  font-family: 'TMONBlack';
+  font-size: 40px;
+}
+.aq-time {
+  font-family: 'Inter light';
+  font-size: 20px;
+  background-color: #344221;
+  padding: 10px 30px;
+  border-radius: 25px;
+}
+.aq-options {
+  display: flex;
+  height: 45px;
+  background-color: #344221;
+  padding-left: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  margin-left: auto;
+}
+.aq-options .aq-radio {
+  padding-right: 30px;
+  font-family: 'S-CoreDream-4Regular';
+  font-size: 16px;
+}
+
+/* GRID: 위 빈칸은 아래 카드가 메우도록 dense */
+.aq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  padding: 40px 0 40px 0;
+  justify-content: center;
+  grid-auto-flow: row dense; /* 빈칸 메우기 */
+}
+
+/* 일반카드 공통 */
+.aq-card {
+  background: #fff;
+  color: #000;
+  border-radius: 7px;
+  padding: 3px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  margin: 30px 15px 2px 15px;
+  outline: 1px solid #aebcad;
+}
+.aq-card__head {
+  background: #6b7e5b;
+  font-family: Oswald;
+  font-size: 24px;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 5px 5px 0 0;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+.aq-card__date {
+  background: #e1ece0;
+  font-family: 'Inter Medium';
+  font-size: 16px;
+  color: #333;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+.aq-card__value {
+  font-family: 'Inter Medium';
+  font-size: 36px;
+  font-weight: 800;
+  height: 90px;
+  line-height: 90px;
+  padding-right: 30px;
+  text-align: right;
+}
+.aq-card__unit {
+  font-family: 'Inter light';
+  font-size: 14px;
+  color: #333;
+  margin-left: 4px;
+}
+
+/* 사이트 버튼 */
+.site-btns-container {
+  display: flex;
+  overflow-x: auto;
+}
+.site-btn {
+  color: #3f5032;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 90px;
+  text-align: center;
+  font-family: Oswald;
+}
+.site-btn.active {
+  background-color: #3f5032;
+  color: white;
+  border-bottom: 1px solid #3f5032;
+}
+.site-btn:hover {
+  color: white;
+  background-color: #3f5032;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.site-btn:active {
+  transform: scale(0.98);
+}
+
+/* 그래프 */
+.graph-section {
+  grid-column: 1 / -1;
+  background-color: #fff;
+  padding: 15px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
+  margin-bottom: -40px;
+  width: 95%;
+}
