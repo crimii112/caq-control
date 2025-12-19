@@ -112,7 +112,7 @@ function Control() {
       data: { page: 'caq/selectlastdata1', sitecd: sitecd },
     });
 
-    // console.log('control data');
+    // console.log('control data: ');
     // console.log(dataRes.rstList2);
     setData(dataRes.rstList2);
   };
@@ -129,7 +129,7 @@ function Control() {
       return;
     }
 
-    // console.log('graphdata: ');
+    // console.log('graph data: ');
     // console.log(dataRes.rstList);
     setGraphData(dataRes.rstList);
   };
