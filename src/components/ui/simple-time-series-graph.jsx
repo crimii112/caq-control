@@ -20,7 +20,7 @@ const SimpleTimeSeriesGraph = ({ data }) => {
     const date = moment(
       payload.value,
       ['YYYY/MM/DD HH:mm', 'YYYY/MM/DD HH'],
-      true
+      true,
     );
     if (!date.isValid()) return null;
 
@@ -109,7 +109,9 @@ const SimpleTimeSeriesGraph = ({ data }) => {
           tickCount={10}
           domain={['auto', 'auto']}
           label={{
-            value: `${firstItem.itemNm}(${firstItem.itemUnit})` || '',
+            value:
+              `${firstItem.itemNm}${firstItem.itemUnit !== '' ? `(${firstItem.itemUnit})` : ''}` ||
+              '',
             angle: -90,
             position: 'insideLeft',
             fontWeight: 'bold',
@@ -120,7 +122,10 @@ const SimpleTimeSeriesGraph = ({ data }) => {
         <Line
           data={data}
           dataKey="conc"
-          name={`${firstItem.itemNm}(${firstItem.itemUnit})` || ''}
+          name={
+            `${firstItem.itemNm}${firstItem.itemUnit !== '' ? `(${firstItem.itemUnit})` : ''}` ||
+            ''
+          }
           stroke={'#344221'}
           strokeWidth={1.5}
         />

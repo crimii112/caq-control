@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, X } from 'lucide-react';
 
 import usePostRequest from '@/hooks/usePostRequest';
 import Timer from '@/worker/Timer';
@@ -20,6 +20,8 @@ function Control() {
   const queryParams = new URLSearchParams(location.search);
   const sitecdParam = queryParams.get('sitecd');
 
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+
   const [siteList, setSiteList] = useState([]);
   const [selectedSite, setSelectedSite] = useState({});
 
@@ -35,7 +37,7 @@ function Control() {
 
   const worker = new Worker(
     new URL('../worker/timerWorker.js', import.meta.url),
-    { type: 'module' }
+    { type: 'module' },
   );
 
   /* 측정소 목록 조회 */
@@ -71,14 +73,21 @@ function Control() {
     worker.postMessage(300000);
   }, [siteList]);
 
+  useEffect(() => {
+    if (data.length === 0) return;
+    if (!isFirstLoad) return;
+
+    setOpenedItemCd(data[0]?.itemCd);
+    setIsFirstLoad(false);
+  }, [data, isFirstLoad]);
+
   /* 관제 데이터 조회 후 그래프 데이터 조회 */
   useEffect(() => {
     if (data.length === 0) return;
-    getGraphData(
-      selectedSite.sitecd,
-      openedItemCd ? openedItemCd : data[0]?.itemCd
-    );
-  }, [data]);
+    if (!openedItemCd) return;
+
+    getGraphData(selectedSite.sitecd, openedItemCd);
+  }, [data, openedItemCd]);
 
   /* 측정소 버튼 클릭 핸들러 */
   const handleClickSiteBtn = site => {
@@ -125,6 +134,7 @@ function Control() {
     });
 
     if (dataRes.rstList[0] === 'NO DATA') {
+      setOpenedItemCd(null);
       alert('그래프를 그릴 데이터가 없습니다.');
       return;
     }
@@ -142,7 +152,6 @@ function Control() {
 
   /* 새로고침 클릭 핸들러 */
   const handleClickRefresh = () => {
-    console.log('clicked refresh button');
     setDefaultSeconds(300);
     setClickedTime(moment());
   };
@@ -175,8 +184,8 @@ function Control() {
       <header className="aq-header">
         <div className="aq-title">
           {selectedSite.site
-            ? `${selectedSite.site.slice(0, 3)} 지구대기물질 관제`
-            : '지구대기물질 관제'}
+            ? `${selectedSite.site.slice(0, 3)} 온실가스 관제`
+            : '온실가스 관제'}
         </div>
         <div className="aq-time">
           update{'  '}
@@ -196,6 +205,15 @@ function Control() {
       {/* 시계열 그래프 */}
       {graphData && graphData.length !== 0 && (
         <section className="graph-section">
+          <button
+            className="graph-close-btn"
+            onClick={() => {
+              setGraphData(null);
+              setOpenedItemCd(null);
+            }}
+          >
+            <X />
+          </button>
           <SimpleTimeSeriesGraph data={graphData} />
         </section>
       )}

@@ -139,3 +139,14 @@ body {
   margin-bottom: -40px;
   width: 95%;
 }
+.graph-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 10;
+}
